@@ -1,0 +1,46 @@
+LogFile = "solspider.log"
+LogPath = "./"
+LogLevel = "Info"
+coins = [
+    "4wR6H5LDBaVc1fJZ5W5m8TDyxug6nrSKu5yfbgVofCxK",
+    "SRMuApVNdxXokk5GT7XD5cUUgXMBCoAz2LHeuAoKWRt",
+    "MSRMcoVyrFxnSgo5uXwone5SKcGhT1KEJMFEkMEWf9L",
+    "9n4nbM75f5Ui33ZbPYXn59EwSgE8CGsHtAeTH5YFeJ9E",
+    "2FPyTwcZLUg1MDrwsyoP4D6s1tM7hAkHYRjkNb5w6Pxk",
+    "AGFEad2et2ZJif9jaGpdMixQqvW5i81aBdvKe7PHNfz3",
+    "3JSf5tPeuscJGtaCp5giEiDhv51gQ4v3zWg8DGgyLfAB",
+    "CWE8jPTUYhdCTZYWPTe1o5DFqfdjzWKc9WKz6rSjQUdG",
+    "Ga2AXHpfAF6mv2ekZwcsJFqu7wB4NV331qNH7fW9Nst8",
+    "BQcdHdAQW1hczDbBi9hiegXAR7A98Q9jx3X3iBBBDiq4",
+    "EPjFWdd5AufqSSqeM2qN1xzybapC8G4wEGGkZwyTDt1v",
+    "BXXkv6z8ykpG1yuvUDPgh732wzVHB69RnB9YgSYh3itW",
+    "AR1Mtgh7zAtxuxGd2XPovXPVjcSdY3i4rQYisNadjfKy",
+    "CsZ5LZkDS7h9TDKjrbL7VAwQZ9nsRu8vJLhRYfmGaN8K",
+    "SF3oTvfWzEP3DTwGSvUXRrGTvr75pdZNnBLAH9bzMuX",
+    "BtZQfWqDGbk9Wf2rXEiWyQBdBY1etnUUn6zEphvVS7yN",
+    "5Fu5UUgbjpUvdBveb3a1JTNirL8rXtiYeSMWvKjtUNQv",
+    "873KLxCbz7s9Kc4ZzgYRtNmhfkQrhfyWGZJBmyCbC3ei",
+    "HqB7uswoVg4suaQiDP3wjxob1G5WdZ144zhdStwMCq7e",
+    "9S4t2NEAiJVMvPdRYKVrfJpBafPBLtvbvyS3DecojQHw",
+    "6WNVCuxCGJzNjmMZoKyhZJwvJ5tYpsLyAtagzYASqBoF",
+    "DJafV9qemGp7mLMEn5wrfqaFwxsbLgUsGVS16zKRk9kc",
+    "DEhAasscXF4kEGxFgJ3bq4PpVGp5wyUxMRvn6TzGVHaw",
+    "GeDS162t9yGJuLEHPWXXGrb1zwkzinCgRwnT8vHYjKza",
+    "GXMvfY2jpQctDqZ9RoU3oWPhufKiCcFEfchvYumtX7jd",
+    "EqWCKXfs3x47uVosDpTRgFniThL9Y8iCztJaapxbEaVX"
+]
+rpcs = [
+    "http://95.216.24.251:8899",
+    "http://34.90.0.172:8899",
+    "http://135.181.61.118:8899",
+    "http://135.181.162.85:8899",
+    "http://34.90.99.98:8899",
+    "http://135.181.179.38:8899",
+    "http://5.62.126.180:8899",
+    "http://188.40.80.200:8899",
+    "http://188.40.80.202:8899",
+    "http://157.90.32.190:8899",
+    "http://135.181.76.219:8899",
+    "http://5.62.126.179:8899",
+    "http://35.236.197.1:8899"
+]

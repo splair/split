@@ -1,0 +1,9 @@
+solspider/cmd/solspider/solspider
+solspider/cmd/solspider/solspider.log
+nohups
+target
+node_modules
+.DS_Store
+adfilter/adfilter
+*.log
+nohup.out
