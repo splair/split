@@ -35,7 +35,7 @@ const Claim = ({airMint, drops, amount, claims, setAppState}) => {
           <div style={{height:"40px"}}></div>
 
           <div style={{fontSize:"40px", color: "pink"}}>
-            <StyledLink>Check this blog for dapp integration guide</StyledLink>
+            <StyledLink href='https://github.com/splair/split/blob/master/airdropUI/docs/tutorial_en.md'>Check this blog for dapp integration guide</StyledLink>
           </div>
 
           <div style={{height:"40px"}}></div>
