@@ -39,7 +39,7 @@ const Condition = ({setAppState, setAccountList}) => {
     const amt = parseInt(minAmount);
     const tstamp = Math.floor(day.getTime() / 1000);
 
-    const url = `http://54.169.189.197/service/adfilter?mint=${mint}&amount=${amt}&start=${tstamp}`;
+    const url = `https://spl-it.app/service/adfilter?mint=${mint}&amount=${amt}&start=${tstamp}`;
 
     console.log(url);
 

@@ -7,18 +7,30 @@ import { Connection,
 
 import {Token, MintLayout, AccountLayout} from '@solana/spl-token'
 import { Airdrop,airdropHeadSpace } from "splair.js";
+import Wallet from "@project-serum/sol-wallet-adapter";
 
 //const MAIN_NET = 'https://api.mainnet-beta.solana.com'
-const MAIN_NET = 'https://solana-api.projectserum.com'
+export const MAIN_NET = 'https://solana-api.projectserum.com'
 //const MAIN_NET = 'https://devnet.solana.com'
 
 export const TOKEN_PROGRAM = 'TokenkegQfeZyiNwAJbNbGKPFXCWuBvf9Ss623VQ5DA'
 export const AIRDROP_PROGRAM = '3SWJqGhxuSm5CkZRZVtKEtCv4HMGo8zdy3Fe67ijqBnL'
 
 class Web3jsHelper {
+
+
+    async selectAccount() {
+        this._wallet.connect()
+    }
+
     constructor() {
         this._provider = MAIN_NET
         this._connection = new Connection(MAIN_NET)
+        this._wallet =  null
+    }
+
+    set wallet(wallet) {
+        this._wallet = wallet;
     }
 
     get connection() {
@@ -120,7 +132,8 @@ class Web3jsHelper {
           )
         trx.recentBlockhash = ( await this._connection.getRecentBlockhash('max') ).blockhash 
         trx.partialSign(...signers);
-        let signedTrx = await window.solong.signTransaction(trx) 
+        //let signedTrx = await window.solong.signTransaction(trx) 
+        let signedTrx = await this._wallet.signTransaction(trx) 
         return this._connection.sendRawTransaction(signedTrx.serialize())
     }
 
@@ -159,7 +172,8 @@ class Web3jsHelper {
         )
         trx.recentBlockhash = ( await this._connection.getRecentBlockhash('max') ).blockhash 
         trx.partialSign(...signers);
-        let signedTrx = await window.solong.signTransaction(trx); 
+        //let signedTrx = await window.solong.signTransaction(trx); 
+        let signedTrx = await this._wallet.signTransaction(trx); 
         return this._connection.sendRawTransaction(signedTrx.serialize());
     }
 
@@ -283,7 +297,8 @@ class Web3jsHelper {
         )
         transaction.recentBlockhash = ( await this._connection.getRecentBlockhash('max') ).blockhash 
         transaction.partialSign(...signers);
-        let signedTrx = await window.solong.signTransaction(transaction) 
+        //let signedTrx = await window.solong.signTransaction(transaction) 
+        let signedTrx = await this._wallet.signTransaction(transaction) 
         try {
             await this._connection.sendRawTransaction(signedTrx.serialize())
             return new Promise((resolve, reject)=>{
@@ -362,7 +377,8 @@ class Web3jsHelper {
         )
         transaction.recentBlockhash = ( await this._connection.getRecentBlockhash('max') ).blockhash 
         transaction.partialSign(...signers);
-        let signedTrx = await window.solong.signTransaction(transaction) 
+        //let signedTrx = await window.solong.signTransaction(transaction) 
+        let signedTrx = await this._wallet.signTransaction(transaction) 
         try {
             await this._connection.sendRawTransaction(signedTrx.serialize())
             return new Promise((resolve, reject)=>{

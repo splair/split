@@ -81,7 +81,7 @@ const DropMethod = ({owner,drops, airMint, amount, setClaims, setAppState}) => {
             })
           }}
         >
-          Send from my accounts
+          Direct transfer
         </Button>
 
         <div style={{height:"40px"}}></div>
@@ -95,7 +95,7 @@ const DropMethod = ({owner,drops, airMint, amount, setClaims, setAppState}) => {
             web3jshelper.mintSPL(owner, drops, airMint, amount)
           }}
         >
-          Mint to the accounts
+          Direct Mint
         </Button>
 
         <div style={{height:"40px"}}></div>
@@ -103,7 +103,7 @@ const DropMethod = ({owner,drops, airMint, amount, setClaims, setAppState}) => {
         <Button
           onClick={btnClicked}
         >
-          Users claim themselves
+          Self Claim
         </Button>
 
         <Modal onClose={close} isOpen={isOpen}>

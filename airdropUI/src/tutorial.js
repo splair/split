@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useContext, useEffect, useMemo, useState }  from 'react';
 import { Input } from "baseui/input";
 import { Button } from "baseui/button";
 import {
@@ -6,10 +6,30 @@ import {
   Display4,
 } from 'baseui/typography';
 import FadeIn from 'react-fade-in';
-import {web3jshelper} from './web3helper'
+import Wallet from "@project-serum/sol-wallet-adapter";
+import {MAIN_NET, web3jshelper} from "./web3helper"
 
 const Tutorial = ({claims, setAppState}) => {
   const [account, setAccount] = React.useState(null);
+
+  const wallet = useMemo(() => {
+    let providerUrl = "https://www.sollet.io"
+      return new Wallet(providerUrl, MAIN_NET);
+  });
+
+  useEffect(() => {
+    console.log("trying to connect");
+    wallet.on("connect", () => {
+      console.log("connected");
+      setAccount(wallet.publicKey.toBase58());
+      web3jshelper.wallet = wallet;
+    });
+    wallet.on("disconnect", () => {
+      setAccount(null);
+      web3jshelper.wallet = null;
+    });
+  }, [wallet]);
+
   return (
 
     <div style={{  display: "flex", width: "100%", flexDirection: "column", alignItems: "center"}}>
@@ -28,11 +48,11 @@ const Tutorial = ({claims, setAppState}) => {
 
       <Button onClick={() => {
         console.log("connect wallet")
-        
-        window.solong.selectAccount().then((account) => { 
-          console.log("connect account with ", account) 
-          setAccount(account)
-        });
+        wallet.connect();
+        // window.solong.selectAccount().then((account) => { 
+        //   console.log("connect account with ", account) 
+        //   setAccount(account)
+        // });
       }}>
         Connect Wallet
       </Button>
@@ -43,11 +63,11 @@ const Tutorial = ({claims, setAppState}) => {
         console.log("claim your tokens")
         web3jshelper.claim(
           account,
-          "3jjkb2zHUMfzjiaRf7coLLdYepLTXQSHTGyWF8H6jnmf",
-          "AojZV7wpazUdD2Nq12QEhwCpC4pCgNvRfZjbeABpENzq",
-          "8qpkefn7Va4SxwSKGoBbSNYzxfXn8Thn18Z5io3dMqJD",
-          "DjwxnJXPPcZf5S5T3s3WxrAveKpy13oTUJqYpe2myZFj",
-          "BgX6SzpeZrDMyNTph4BZqfHQszBZM7JdPwAUXzh1NnS8",
+          "3JSf5tPeuscJGtaCp5giEiDhv51gQ4v3zWg8DGgyLfAB",
+          "CCSQckUnv9LYgP1xSg11wiUyJK8AtvYzXUb3LFMhiK8",
+          "DyLcsq1ov1sVF5kmimYeeo1cbM1veTuDnC5jDhPDk3LY",
+          "CeVnxh6cWnCpX2wA2fn9qLNcAtW6sSLsRsAdpnThcKwz",
+          "6ycKFJYs1isbjNa9FRtfLMhJP1TiQVB79h18UdyKVEPB",
         )
       }}>
         Claim!

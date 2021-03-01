@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{ useContext, useEffect, useMemo, useState }   from 'react';
 import logo from './logo.svg';
 import ChooseToken from './chooseToken';
 import Condition from './condition';
@@ -9,6 +9,8 @@ import DropMethod from './dropMethod';
 import Success from './success';
 import Tutorial from './tutorial';
 import Claim from './claim';
+import Wallet from "@project-serum/sol-wallet-adapter";
+import {MAIN_NET, web3jshelper} from "./web3helper"
 
 import {Spinner} from 'baseui/spinner';
 import {StyledLink} from 'baseui/link';
@@ -33,6 +35,24 @@ function App() {
   const [amount, setAmount] = React.useState(0)
 
   const [claims, setClaims] = React.useState(null)
+
+  const wallet = useMemo(() => {
+    let providerUrl = "https://www.sollet.io"
+      return new Wallet(providerUrl, MAIN_NET);
+  });
+
+  useEffect(() => {
+    console.log("trying to connect");
+    wallet.on("connect", () => {
+      console.log("connected");
+      setAccount(wallet.publicKey.toBase58());
+      web3jshelper.wallet = wallet;
+    });
+    wallet.on("disconnect", () => {
+      setAccount(null);
+      web3jshelper.wallet = null;
+    });
+  }, [wallet]);
 
   const mainComp = React.useMemo(() => {
     switch(appState) {
@@ -82,7 +102,7 @@ function App() {
           <div style={{  display: "flex", width: "100%", flexDirection: "column", alignItems: "center"}}>
             <header className="App-header">
               <p>
-                SPLit - we need air and airdrop
+                SPL·it - air for life, airdrop for better life
               </p>
               {account &&
                 <div style={{fontSize: '12px'}}>{account}</div>
@@ -95,16 +115,7 @@ function App() {
               <div style={{height: "36px"}}></div>
               <Button
                   onClick={() => {
-                    // TODO connect solong
-                    if (!window.solong) { 
-                      console.log("please install Solong Extension from chrome");
-                      return ; 
-                    }
-
-                    window.solong.selectAccount().then((account) => { 
-                      console.log("connect account with ", account) 
-                      setAccount(account)
-                    });
+                    wallet.connect()
                   }}
                 >Connect Wallet
               </Button>
