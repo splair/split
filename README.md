@@ -1,6 +1,6 @@
 # SPLit
 
-spl-it.app
+[spl-it.app](spl-it.app)
 
 ![](./images/node.png)
 
