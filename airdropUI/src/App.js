@@ -13,10 +13,13 @@ import Wallet from "@project-serum/sol-wallet-adapter";
 import {MAIN_NET, web3jshelper} from "./web3helper"
 
 import {Spinner} from 'baseui/spinner';
+import {Select} from 'baseui/select';
 import {StyledLink} from 'baseui/link';
+import {useStyletron} from 'baseui';
 
 import './App.css';
 import { Button } from 'baseui/button';
+import {SolongAdapter} from './solong_adapter'
 
 import {
   BrowserRouter as Router,
@@ -27,6 +30,8 @@ import {
 
 function App() {
 
+  const [css] = useStyletron();
+
   const [appState, setAppState] = React.useState("choose");
   const [airMint, setAirMint] = React.useState(""); 
   const [accountList, setAccountList] = React.useState([]);
@@ -36,13 +41,36 @@ function App() {
 
   const [claims, setClaims] = React.useState(null)
 
-  const wallet = useMemo(() => {
-    let providerUrl = "https://www.sollet.io"
-      return new Wallet(providerUrl, MAIN_NET);
-  });
+  const [walletOption, setWalletOption] = React.useState([{ label: "Sollet.io", id: "sollet" }]);
+  const [providerUrl, setProviderUrl] = React.useState("https://www.sollet.io")
+
+  const changeWallet = (params) => {
+    setWalletOption(params.value);
+    const walletAdapter = params.value[0].id;
+
+    console.log("change wallet",walletAdapter); // wallet is 'sollet' or 'solong'
+    if (walletAdapter == "solong") {
+      console.log("use solong");
+      setProviderUrl("http://solongwallet.com");
+    } else {
+      setProviderUrl("https://www.sollet.io");
+    }
+    // TODO 
+  }
+
+  let wallet = useMemo(() => {
+    const endpoint = MAIN_NET;
+    console.log("use new provider:", providerUrl, " endpoint:", endpoint)
+    if (providerUrl==="http://solongwallet.com")  {
+      return new SolongAdapter(providerUrl, endpoint);
+    } else {
+      return new Wallet(providerUrl, endpoint)
+    }}, [
+    providerUrl,
+  ]);
 
   useEffect(() => {
-    console.log("trying to connect");
+    console.log("trying to connect:", wallet);
     wallet.on("connect", () => {
       console.log("connected");
       setAccount(wallet.publicKey.toBase58());
@@ -104,8 +132,25 @@ function App() {
               <p>
                 SPL·it - air for life, airdrop for better life
               </p>
-              {account &&
-                <div style={{fontSize: '12px'}}>{account}</div>
+              {account ? 
+                (<div style={{fontSize: '12px'}}>{account}</div>) : (
+                  <div style={{width: "200px"}}>
+                  <Select
+                    className={css({
+                      width: '100px',
+                      paddingLeft: 0,
+                      paddingRight: 0,
+                    })}
+                    options={[
+                      { label: "Sollet.io", id: "sollet" },
+                      { label: "Solong", id: "solong" },
+                    ]}
+                    value={walletOption}
+                    placeholder="Select wallet"
+                    onChange={changeWallet}
+                  />
+                  </div>
+                )
               }
             </header>
       
@@ -115,6 +160,7 @@ function App() {
               <div style={{height: "36px"}}></div>
               <Button
                   onClick={() => {
+                    console.log("Wallet ",wallet," connectting")
                     wallet.connect()
                   }}
                 >Connect Wallet
